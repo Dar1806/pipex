@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:54:24 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/05 14:41:42 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:47:16 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "libft.h"
 
 #endif

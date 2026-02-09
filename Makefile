@@ -6,11 +6,13 @@
 #    By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/05 11:19:10 by nmeunier          #+#    #+#              #
-#    Updated: 2026/02/05 14:17:59 by nmeunier         ###   ########.fr        #
+#    Updated: 2026/02/09 15:46:41 by nmeunier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = src/main.c
+LIBFT	= libft/ft_putstr_fd.c
+
+SRCS = $(LIBFT) src/main.c
 
 CC = cc
 RM = rm -f
@@ -20,7 +22,6 @@ NAME = pipex
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
-
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
