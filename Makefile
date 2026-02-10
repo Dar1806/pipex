@@ -6,13 +6,13 @@
 #    By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/05 11:19:10 by nmeunier          #+#    #+#              #
-#    Updated: 2026/02/09 15:46:41 by nmeunier         ###   ########.fr        #
+#    Updated: 2026/02/10 17:50:11 by nmeunier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBFT	= libft/ft_putstr_fd.c
 
-SRCS = $(LIBFT) src/main.c
+SRCS = $(LIBFT) src/main.c src/process.c 
 
 CC = cc
 RM = rm -f
