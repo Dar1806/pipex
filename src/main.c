@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 11:20:28 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/10 18:19:03 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:46:59 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av, char **env)
 	int	pipe_id;
 	int	pipefd[2];
 
-	if (ac != 4)
+	if (ac != 5)
 	{
 		ft_putstr_fd("Error : Wrong number of arguments\n", 2);
 		return (1);
@@ -28,8 +28,11 @@ int	main(int ac, char **av, char **env)
 	if (pipe_id == -1)
 		return (0);
 	if (pipe_id == 0)
-		child_process(av, env, pipefd);
+		child(av, env, pipefd);
 	else
+	{
 		wait(NULL);
+		parent(av, env, pipefd);
+	}
 	return (0);
 }

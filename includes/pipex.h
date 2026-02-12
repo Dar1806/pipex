@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:54:24 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/10 18:18:56 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:40:48 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 # include <fcntl.h>
 # include "libft.h"
 
-void	parent_process(char **av, char **env, int *pipefd);
-void	child_process(char **av, char **env, int *pipefd);
+void	parent(char **av, char **env, int *pipefd);
+void	child(char **av, char **env, int *pipefd);
+char	*ft_getenv(char *name, char **env);
 int		write_read(char *file, int mode);
+void	exec_cmd(char *cmd, char **env);
+char	*get_path(char *cmd, char **env);
+void	free_tab(char **tab_cmd);
 
 #endif
