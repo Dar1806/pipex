@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/12 19:42:40 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/12 21:01:53 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,35 @@
 
 char	*ft_getenv(char *name, char **env)
 {
+	int	i;
+	int	j;
+	char	*path;
+
+	i = -1;
+	while (env[++i])
+	{
+		j = 0;
+		while (env[i][j] && env[i][j] != '=')
+			j++;
+		path = ft_substr(env[i], 0, j);
+		if (ft_strcmp(name, env[i]) == 0)
+		{
+			free(path);
+			fprintf(stderr, "PATH found : %s\n", env[i]);
+			return (env[i] + j + 1);
+		}
+		free(path);
+	}
+	return (NULL);
 }
 
 char	*get_path(char *cmd, char **env)
 {
+	char	*path;
+
+	path = ft_getenv("PATH", env);
+	cmd = ft_strjoin("/", path); 
+	return (cmd);
 }
 
 void	free_tab(char **tab_cmd)
