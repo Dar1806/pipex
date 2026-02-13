@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 11:20:28 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/12 16:46:59 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/13 21:23:00 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,15 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	}
 	if (pipe(pipefd) == -1)
-		return (0);
+		return (1);
 	pipe_id = fork();
 	if (pipe_id == -1)
-		return (0);
+		return (1);
 	if (pipe_id == 0)
 		child(av, env, pipefd);
 	else
-	{
-		wait(NULL);
 		parent(av, env, pipefd);
-	}
+	close(pipefd[0]);
+	close(pipefd[1]);
 	return (0);
 }

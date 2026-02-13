@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:16:10 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/12 15:08:58 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/13 21:23:18 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	child(char **av, char **env, int *pipefd)
 	dup2(pipefd[1], 1);
 	close(pipefd[0]);
 	exec_cmd(av[2], env);
-	exit(1);
 }
 
 void	parent(char **av, char **env, int *pipefd)
@@ -46,5 +45,4 @@ void	parent(char **av, char **env, int *pipefd)
 	dup2(pipefd[0], 0);
 	close(pipefd[1]);
 	exec_cmd(av[3], env);
-	exit(1);
 }

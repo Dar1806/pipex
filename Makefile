@@ -6,12 +6,12 @@
 #    By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/05 11:19:10 by nmeunier          #+#    #+#              #
-#    Updated: 2026/02/12 19:38:21 by nmeunier         ###   ########.fr        #
+#    Updated: 2026/02/13 18:59:16 by nmeunier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBFT	= libft/ft_putstr_fd.c libft/ft_split.c libft/ft_substr.c \
-			libft/ft_strlen.c libft/ft_strcmp.c libft/ft_strjoin.c \
+			libft/ft_strlen.c libft/ft_strncmp.c libft/ft_strjoin.c \
 			libft/ft_memcpy.c
 
 SRCS = $(LIBFT) src/main.c src/process.c src/path.c
