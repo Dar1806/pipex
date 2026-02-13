@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/13 20:36:54 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 00:05:03 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	free_tab(char **tab_cmd)
+void	free_tab(char **tab)
 {
 	int	i;
 
-	if (!tab_cmd)
+	if (!tab)
 		return ;
 	i = 0;
-	while (tab_cmd[i])
+	while (tab[i])
 	{
-		free(tab_cmd[i]);
+		free(tab[i]);
 		i++;
 	}
-	free(tab_cmd);
+	free(tab);
 }
 
 void	exec_cmd(char *cmd, char **env)

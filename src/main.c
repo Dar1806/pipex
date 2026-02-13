@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 11:20:28 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/13 21:23:00 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 00:05:44 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char **av, char **env)
 
 	if (ac != 5)
 	{
-		ft_putstr_fd("Error : Wrong number of arguments\n", 2);
+		ft_putstr_fd("Error : Wrong number of arguments\n", 1);
 		return (1);
 	}
 	if (pipe(pipefd) == -1)
