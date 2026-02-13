@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/14 00:05:03 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 00:17:23 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ void	exec_cmd(char *cmd, char **env)
 	tab_cmd = ft_split(cmd, ' ');
 	if (!tab_cmd || !tab_cmd[0] || tab_cmd[0][0] == '\0')
 	{
+		ft_putstr_fd("command not valid\n", 2);
 		free_tab(tab_cmd);
 		exit(127);
 	}
 	path = get_path(tab_cmd[0], env);
 	if (execve(path, tab_cmd, env) == -1)
 	{
+		ft_putstr_fd("command not found\n", 2);
 		free_tab(tab_cmd);
 		exit(127);
 	}
