@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:16:10 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/13 23:52:01 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:25:31 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	write_read(char *file, int mode)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
+	{		
+		ft_putstr_fd("Error : Can't open file\n", 1);
 		exit(1);
+	}
 	return (fd);
 }
 
@@ -30,8 +33,21 @@ void	child(char **av, char **env, int *pipefd)
 	int	fd;
 
 	fd = write_read(av[1], 0);
-	dup2(fd, 0);
-	dup2(pipefd[1], 1);
+	if (dup2(fd, 0) == -1)
+	{
+		ft_putstr_fd("Error : dup2 failed\n", 1);
+		close(fd);
+		exit(1);
+	}
+	close(fd);
+	if (dup2(pipefd[1], 1) == -1)
+	{
+		ft_putstr_fd("Error : dup2 failed\n", 1);
+		close(pipefd[1]);
+		close(pipefd[0]);
+		exit(1);
+	}
+	close(pipefd[1]);
 	close(pipefd[0]);
 	exec_cmd(av[2], env);
 }
@@ -41,8 +57,21 @@ void	parent(char **av, char **env, int *pipefd)
 	int	fd;
 
 	fd = write_read(av[4], 1);
-	dup2(fd, 1);
-	dup2(pipefd[0], 0);
+	if (dup2(fd, 1) == -1)
+	{
+		ft_putstr_fd("Error : dup2 failed\n", 1);
+		close(fd);
+		exit(1);
+	}
+	close(fd);
+	if (dup2(pipefd[0], 0) == -1)
+	{
+		ft_putstr_fd("Error : dup2 failed\n", 1);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		exit(1);
+	}
+	close(pipefd[0]);
 	close(pipefd[1]);
 	exec_cmd(av[3], env);
 }

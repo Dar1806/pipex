@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 11:20:28 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/14 00:05:44 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 16:19:14 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	main(int ac, char **av, char **env)
 	int	pipe_id;
 	int	pipefd[2];
 
+	if (env == NULL || env[0] == NULL)
+	{
+		ft_putstr_fd("Error : No environment variables\n", 1);
+		return (1);
+	}
 	if (ac != 5)
 	{
 		ft_putstr_fd("Error : Wrong number of arguments\n", 1);
