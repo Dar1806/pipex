@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/14 00:17:23 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:20:05 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ char	*get_path(char *cmd, char **env)
 	i = -1;
 	while (path[++i])
 	{
-		full_path = ft_strjoin(path[i], "/");
-		is_ok = ft_strjoin(full_path, tab_cmd[0]);
+		full_path = strjoin(path[i], "/");
+		is_ok = strjoin(full_path, tab_cmd[0]);
 		free(full_path);
 		if (access(is_ok, F_OK | X_OK) == 0)
 		{
