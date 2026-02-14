@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 17:16:10 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/13 23:52:01 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:26:08 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	write_read(char *file, int mode)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
+	{
+		ft_putstr_fd("Error : Can't open file\n", 1);	
 		exit(1);
+	}
 	return (fd);
 }
 
