@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/14 00:17:23 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:50:36 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,52 @@ char	*ft_getenv(char **env)
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*find_cmd_in_paths(char **path, char *cmd_name)
 {
-	char	**path;
-	char	**tab_cmd;
 	char	*full_path;
 	char	*is_ok;
 	int		i;
 
-	path = ft_split(ft_getenv(env), ':');
-	tab_cmd = ft_split(cmd, ' ');
 	i = -1;
 	while (path[++i])
 	{
 		full_path = ft_strjoin(path[i], "/");
-		is_ok = ft_strjoin(full_path, tab_cmd[0]);
+		if (!full_path)
+			return (NULL);
+		is_ok = ft_strjoin(full_path, cmd_name);
 		free(full_path);
+		if (!is_ok)
+			return (NULL);
 		if (access(is_ok, F_OK | X_OK) == 0)
-		{
-			free_tab(path);
-			free_tab(tab_cmd);
 			return (is_ok);
-		}
 		free(is_ok);
 	}
+	return (NULL);
+}
+
+char	*get_path(char *cmd, char **env)
+{
+	char	**path;
+	char	**tab_cmd;
+	char	*result;
+
+	if (!cmd || !cmd[0])
+		return (cmd);
+	path = ft_split(ft_getenv(env), ':');
+	if (!path)
+		return (cmd);
+	tab_cmd = ft_split(cmd, ' ');
+	if (!tab_cmd || !tab_cmd[0])
+	{
+		free_tab(path);
+		free_tab(tab_cmd);
+		return (cmd);
+	}
+	result = find_cmd_in_paths(path, tab_cmd[0]);
 	free_tab(path);
 	free_tab(tab_cmd);
+	if (result)
+		return (result);
 	return (cmd);
 }
 
@@ -83,7 +103,7 @@ void	exec_cmd(char *cmd, char **env)
 		free_tab(tab_cmd);
 		exit(127);
 	}
-	path = get_path(tab_cmd[0], env);
+	path = get_path(cmd, env);
 	if (execve(path, tab_cmd, env) == -1)
 	{
 		ft_putstr_fd("command not found\n", 2);

@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:54:24 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/13 23:44:10 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:50:39 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_getenv(char **env);
 int		write_read(char *file, int mode);
 void	exec_cmd(char *cmd, char **env);
 char	*get_path(char *cmd, char **env);
+char	*find_cmd_in_paths(char **path, char *cmd_name);
 void	free_tab(char **tab);
 
 #endif
