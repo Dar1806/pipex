@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:54:24 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/16 10:50:39 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:38:58 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 void	parent(char **av, char **env, int *pipefd);
 void	child(char **av, char **env, int *pipefd);
 char	*ft_getenv(char **env);
-int		write_read(char *file, int mode);
+int		write_read(char *file, int mode, int *pipefd);
 void	exec_cmd(char *cmd, char **env);
 char	*get_path(char *cmd, char **env);
 char	*find_cmd_in_paths(char **path, char *cmd_name);
