@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 14:14:49 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/02/16 10:50:36 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/04/17 17:45:59 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_getenv(char **env)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (env[++i])
@@ -48,30 +48,33 @@ char	*find_cmd_in_paths(char **path, char *cmd_name)
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*get_path(char *cmd_name, char **env)
 {
 	char	**path;
-	char	**tab_cmd;
+	char	*env_path;
 	char	*result;
+	int		i;
 
-	if (!cmd || !cmd[0])
-		return (cmd);
-	path = ft_split(ft_getenv(env), ':');
-	if (!path)
-		return (cmd);
-	tab_cmd = ft_split(cmd, ' ');
-	if (!tab_cmd || !tab_cmd[0])
+	if (!cmd_name || !cmd_name[0])
+		return (NULL);
+	i = 0;
+	while (cmd_name[i] && cmd_name[i] != '/')
+		i++;
+	if (cmd_name[i] == '/')
 	{
-		free_tab(path);
-		free_tab(tab_cmd);
-		return (cmd);
+		if (access(cmd_name, F_OK | X_OK) == 0)
+			return (ft_strjoin(cmd_name, ""));
+		return (NULL);
 	}
-	result = find_cmd_in_paths(path, tab_cmd[0]);
+	env_path = ft_getenv(env);
+	if (!env_path)
+		return (NULL);
+	path = ft_split(env_path, ':');
+	if (!path)
+		return (NULL);
+	result = find_cmd_in_paths(path, cmd_name);
 	free_tab(path);
-	free_tab(tab_cmd);
-	if (result)
-		return (result);
-	return (cmd);
+	return (result);
 }
 
 void	free_tab(char **tab)
@@ -87,27 +90,4 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
-}
-
-void	exec_cmd(char *cmd, char **env)
-{
-	char	**tab_cmd;
-	char	*path;
-
-	if (!cmd || cmd[0] == '\0')
-		exit(127);
-	tab_cmd = ft_split(cmd, ' ');
-	if (!tab_cmd || !tab_cmd[0] || tab_cmd[0][0] == '\0')
-	{
-		ft_putstr_fd("command not valid\n", 2);
-		free_tab(tab_cmd);
-		exit(127);
-	}
-	path = get_path(cmd, env);
-	if (execve(path, tab_cmd, env) == -1)
-	{
-		ft_putstr_fd("command not found\n", 2);
-		free_tab(tab_cmd);
-		exit(127);
-	}
 }

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 16:58:53 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/04/17 12:00:00 by nmeunier         ###   ########.fr       */
+/*   Created: 2025/11/06 12:04:54 by nmeunier          #+#    #+#             */
+/*   Updated: 2025/11/07 11:11:08 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strchr(const char *str, int c)
 {
-	size_t	lens1;
-	size_t	lens2;
-	char	*new;
+	int	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
-	new = (char *)malloc(sizeof(char) * (lens1 + lens2 + 1));
-	if (!new)
-		return (NULL);
-	ft_memcpy(new, s1, lens1);
-	ft_memcpy(new + lens1, s2, lens2);
-	new[lens1 + lens2] = '\0';
-	return (new);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)c)
+			return ((char *)&str[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&str[i]);
+	return (NULL);
 }
