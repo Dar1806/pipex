@@ -1,49 +1,84 @@
-<<<<<<< HEAD
-This project has been created as part of the 42 curriculum by nmeunier.
+*This project has been created as part of the 42 curriculum by nmeunier.*
 
-## About
+## Description
 
-`pipex` is a C program that reproduces the behavior of a shell pipeline between two commands. It takes two files and two commands as arguments, and chains them as if you had typed in a shell:
-
-```bash
-< infile cmd1 | cmd2 > outfile
-```
-
-The goal of the project is to deepen the understanding of UNIX processes, file descriptors, pipes, and the `execve` family of system calls.
-
-## Usage
+Pipex is a C implementation of the Unix pipe mechanism, recreating the behavior of the shell command:
 
 ```bash
-./pipex infile "cmd1" "cmd2" outfile
+< file1 cmd1 | cmd2 > file2
 ```
 
-- `infile` — input file (read by `cmd1`)
-- `cmd1` — first command, with its arguments, as a single string
-- `cmd2` — second command, with its arguments, as a single string
-- `outfile` — output file (written by `cmd2`)
+The project aims to:
 
-### Example
+- Understand how Unix pipes work at the system level
+- Master process creation and management using `fork()`
+- Learn inter-process communication (IPC) through pipes
+- Implement command execution using `execve()`
+- Handle file descriptors and redirections properly
+- Practice memory management and error handling in C
+
+The pipex program takes four mandatory arguments:
+
+- `file1`: input file to read from
+- `cmd1`: first command to execute
+- `cmd2`: second command to execute
+- `file2`: output file to write to
+
+The program creates two child processes connected by a pipe, allowing the output of `cmd1` to become the input of `cmd2`, with the final result written to `file2`.
+
+## Instructions
+
+### Compilation
+
+To compile the project, run:
 
 ```bash
-./pipex infile "grep hello" "wc -l" outfile
+make
 ```
 
-This is equivalent to:
+### Execution
+
+Run the pipex program with four arguments:
 
 ```bash
-< infile grep hello | wc -l > outfile
+./pipex <file1> <cmd1> <cmd2> <file2>
 ```
 
-## Build
+#### Example usage
+
+Create a test file:
 
 ```bash
-make        # builds the pipex binary
-make clean  # removes object files
-make fclean # removes object files and the binary
-make re     # fclean + build
+echo "Hello World" > input.txt
 ```
 
-Compiled with `cc -Wall -Wextra -Werror`.
+Run pipex to pipe the output of `cat` through `wc -w`:
+
+```bash
+./pipex input.txt "cat" "wc -w" output.txt
+```
+
+The result (2) will be written to `output.txt`.
+
+Another example with `grep` and `wc`:
+
+```bash
+./pipex input.txt "grep Hello" "wc -c" output.txt
+```
+
+## How it works
+
+1. Validate arguments and the environment.
+2. Create a pipe with `pipe()`.
+3. Fork a first child that redirects `stdin` to `file1`, `stdout` to the pipe's write end, and runs `cmd1` via `execve`.
+4. Fork a second child that redirects `stdin` to the pipe's read end, `stdout` to `file2`, and runs `cmd2`.
+5. The parent closes both pipe ends and waits for both children with `waitpid`, returning the exit status of the last command.
+
+Command resolution handles three cases:
+
+- Paths containing `/` (absolute or relative) are checked directly with `access`.
+- Plain command names are searched through the `PATH` environment variable.
+- If `PATH` is not set or the command is not found, `pipex` prints an error on `stderr` and exits with status 127.
 
 ## Testing
 
@@ -64,83 +99,4 @@ env -i ./pipex infile "/bin/cat" "/usr/bin/wc -l" out
 # Memory leaks
 valgrind --leak-check=full --trace-children=yes --track-fds=yes \
     ./pipex infile "ls -la" "wc -l" out
-=======
-# Pipex
-
-*This project has been created as part of the 42 curriculum by nmeunier.*
-
-## Description
-
-Pipex is a C implementation of the Unix pipe mechanism, recreating the behavior of the shell command:
-```bash
-< file1 cmd1 | cmd2 > file2
-```
-
-The project aims to:
-- Understand how Unix pipes work at the system level
-- Master process creation and management using `fork()`
-- Learn inter-process communication (IPC) through pipes
-- Implement command execution using `execve()`
-- Handle file descriptors and redirections properly
-- Practice memory management and error handling in C
-
-The pipex program takes four mandatory arguments:
-- `file1`: input file to read from
-- `cmd1`: first command to execute
-- `cmd2`: second command to execute
-- `file2`: output file to write to
-
-The program creates two child processes connected by a pipe, allowing the output of `cmd1` to become the input of `cmd2`, with the final result written to `file2`.
-
-## Instructions
-
-### Compilation
-
-To compile the project, run:
-```bash
-make
-```
-
-This will generate the `pipex` executable.
-
-To clean up object files:
-```bash
-make clean
-```
-
-To remove all compiled files including the executable:
-```bash
-make fclean
-```
-
-To rebuild the project from scratch:
-```bash
-make re
-```
-
-### Execution
-
-Run the pipex program with four arguments:
-```bash
-./pipex <file1> <cmd1> <cmd2> <file2>
-```
-
-#### Example Usage
-
-Create a test file:
-```bash
-echo "Hello World" > input.txt
-```
-
-Run pipex to pipe the output of `cat` through `wc -w`:
-```bash
-./pipex input.txt "cat" "wc -w" output.txt
-```
-
-The result (2) will be written to `output.txt`.
-
-Another example with `grep` and `wc`:
-```bash
-./pipex input.txt "grep Hello" "wc -c" output.txt
->>>>>>> 363c4289cbc34f965fdfc4e5e213a1ed6958f53e
 ```
