@@ -6,11 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 13:54:24 by nmeunier          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/04/17 17:47:22 by nmeunier         ###   ########.fr       */
-=======
-/*   Updated: 2026/02/17 19:38:58 by nmeunier         ###   ########.fr       */
->>>>>>> 363c4289cbc34f965fdfc4e5e213a1ed6958f53e
+/*   Updated: 2026/04/17 17:52:40 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +22,6 @@
 # include <fcntl.h>
 # include "libft.h"
 
-<<<<<<< HEAD
-=======
-void	parent(char **av, char **env, int *pipefd);
-void	child(char **av, char **env, int *pipefd);
-char	*ft_getenv(char **env);
-int		write_read(char *file, int mode, int *pipefd);
-void	exec_cmd(char *cmd, char **env);
-char	*get_path(char *cmd, char **env);
->>>>>>> 363c4289cbc34f965fdfc4e5e213a1ed6958f53e
 char	*find_cmd_in_paths(char **path, char *cmd_name);
 void	parent(char **av, char **env, int *pipefd);
 void	cmd_not_found(char *name, char **tab_cmd);
