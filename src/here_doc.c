@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 16:00:00 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/05/18 18:22:42 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/05/18 18:55:04 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static char	*read_line(void)
 	char	*line;
 	char	buf;
 	int		i;
-	int		ret;
+	int		rd;
 
 	line = malloc(4096);
 	if (!line)
 		return (NULL);
 	i = 0;
-	ret = read(0, &buf, 1);
-	while (ret > 0 && buf != '\n')
+	rd = read(0, &buf, 1);
+	while (rd > 0 && buf != '\n')
 	{
 		line[i++] = buf;
-		ret = read(0, &buf, 1);
+		rd = read(0, &buf, 1);
 	}
 	line[i] = '\0';
 	return (line);
