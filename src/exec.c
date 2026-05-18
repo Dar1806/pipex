@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:00:00 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/04/17 17:47:32 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/05/18 15:42:57 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,22 @@ void	exec_cmd(char *cmd, char **env)
 	free(path);
 	free_tab(tab_cmd);
 	exit(126);
+}
+
+int	wait_children(t_pipex *data)
+{
+	int	i;
+	int	status;
+	int	last;
+
+	i = 0;
+	last = 1;
+	while (i < data->nb_cmds)
+	{
+		waitpid(data->pids[i], &status, 0);
+		if (i == data->nb_cmds - 1 && WIFEXITED(status))
+			last = WEXITSTATUS(status);
+		i++;
+	}
+	return (last);
 }

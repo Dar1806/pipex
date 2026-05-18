@@ -6,7 +6,7 @@
 #    By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/05 11:19:10 by nmeunier          #+#    #+#              #
-#    Updated: 2026/04/17 17:46:28 by nmeunier         ###   ########.fr        #
+#    Updated: 2026/05/18 15:37:26 by nmeunier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIBFT	= libft/ft_putstr_fd.c libft/ft_split.c libft/ft_substr.c \
 			libft/ft_strlen.c libft/ft_strncmp.c libft/ft_strjoin.c \
 			libft/ft_memcpy.c libft/ft_strchr.c
 
-SRCS = $(LIBFT) src/main.c src/process.c src/path.c src/exec.c
+SRCS = $(LIBFT) src/main.c src/process.c src/path.c src/exec.c src/here_doc.c
 
 CC = cc
 RM = rm -f
