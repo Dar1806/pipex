@@ -6,7 +6,7 @@
 /*   By: nmeunier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 16:00:00 by nmeunier          #+#    #+#             */
-/*   Updated: 2026/05/18 15:36:51 by nmeunier         ###   ########.fr       */
+/*   Updated: 2026/05/18 18:22:42 by nmeunier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*read_line(void)
 {
 	char	*line;
-	char	buf[2];
+	char	buf;
 	int		i;
 	int		ret;
 
@@ -23,12 +23,11 @@ static char	*read_line(void)
 	if (!line)
 		return (NULL);
 	i = 0;
-	buf[1] = '\0';
-	ret = read(0, buf, 1);
-	while (ret > 0 && buf[0] != '\n')
+	ret = read(0, &buf, 1);
+	while (ret > 0 && buf != '\n')
 	{
-		line[i++] = buf[0];
-		ret = read(0, buf, 1);
+		line[i++] = buf;
+		ret = read(0, &buf, 1);
 	}
 	line[i] = '\0';
 	return (line);
